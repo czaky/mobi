@@ -5,7 +5,7 @@ import sys
 from database import ReservationDB
 
 class ReservationShell(cmd.Cmd):
-    """Cmd shell for the reservation system."""
+    "Cmd shell for the reservation system."
     intro = 'Welcome to the reservation shell.\nType help or ? to list commands.'
     prompt = 'res> '
 
@@ -15,7 +15,7 @@ class ReservationShell(cmd.Cmd):
         self.flight = None
 
     def do_flight(self, flight):
-        'Set the current flight number:  FLIGHT AA311'
+        "Set the current flight number:  FLIGHT AA311"
         self.flight = self.data.lookup_flight(flight)
         if self.flight:
             print('OK')
@@ -23,7 +23,7 @@ class ReservationShell(cmd.Cmd):
             print(f'ERROR: flight "{flight}" not found in the database.')
 
     def do_scan(self, pnr):
-        'Scan a boarding pass reservation code:  SCAN ACIWMY'
+        "Scan a boarding pass reservation code:  SCAN ACIWMY"
         if not self.flight:
             print('ERROR: please select the flight using the `FLIGHT XXXX` command.')
         elif self.flight.scan_passenger(pnr):
@@ -32,12 +32,12 @@ class ReservationShell(cmd.Cmd):
             print('DENY')
 
     def do_exit(self, _):
-        'Exit the shell:  EXIT'
+        "Exit the shell:  EXIT"
         print('Thank you for using Mobi reservation system.')
         return True
 
     def do_eof(self, _):
-        'Exit the shell on CTRL-d'
+        "Exit the shell on CTRL-d"
         print('Thank you for using Mobi reservation system.')
         return True
 
@@ -46,7 +46,7 @@ class ReservationShell(cmd.Cmd):
         return line.lower()
 
 
-DEFAULT_DATA = "test_reservation_data.json"
+DEFAULT_DATA = 'test_reservation_data.json'
 
 def main(argv):
     "main"

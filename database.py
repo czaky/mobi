@@ -42,7 +42,7 @@ Contains all the relevant `pnr` records.
             pnr['scanned'] for pnr in self.passengers.values())
 
 class ReservationDB:
-    """Passenger flight database."""
+    "Passenger flight database."
 
     def __init__(self):
         self.flights = {}
@@ -69,7 +69,7 @@ class ReservationDB:
             flight.add_passenger(pnr)
 
     def lookup_flight(self, flight_code: str) -> Optional[Flight]:
-        """Lookup the flight by `flight_code`."""
+        "Lookup the flight by `flight_code`."
         return self.flights.get(flight_code.lower())
 
     def count_flights(self) -> int:
