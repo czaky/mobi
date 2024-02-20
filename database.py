@@ -51,6 +51,7 @@ class ReservationDB:
         "Load data from JSON `data_file_name`."
         with open(data_file_name, encoding='utf8') as data_file:
             data = json.load(data_file)
+        count = 0
         for pnr in data['records']:
             flight_code = pnr['flight_number'].lower()
             flight = self.flights.get(flight_code)
@@ -58,6 +59,8 @@ class ReservationDB:
                 flight = self.flights.setdefault(
                     flight_code, Flight(flight_code))
             flight.add_passenger(pnr)
+            count += 1
+        print(f"Loaded {count} passenger records from: '{data_file_name}'")
 
     def lookup_flight(self, flight_code: str) -> Optional[Flight]:
         """Lookup the flight by `flight_code`."""
