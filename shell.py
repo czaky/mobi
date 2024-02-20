@@ -36,6 +36,11 @@ class ReservationShell(cmd.Cmd):
         print('Thank you for using Mobi reservation system.')
         return True
 
+    def do_eof(self, _):
+        'Exit the shell on CTRL-d'
+        print('Thank you for using Mobi reservation system.')
+        return True
+
     def precmd(self, line):
         "Make prompt case insensitive."
         return line.lower()
