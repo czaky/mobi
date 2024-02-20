@@ -2,14 +2,14 @@
 
 import cmd
 import sys
-import db
+from database import ReservationDB
 
 class ReservationShell(cmd.Cmd):
     """Cmd shell for the reservation system."""
     intro = 'Welcome to the reservation shell.\nType help or ? to list commands.'
     prompt = 'res> '
 
-    def __init__(self, data_database: db.ReservationDB):
+    def __init__(self, data_database: ReservationDB):
         cmd.Cmd.__init__(self)
         self.data = data_database
         self.flight = None
@@ -38,9 +38,7 @@ class ReservationShell(cmd.Cmd):
 
     def precmd(self, line):
         "Make prompt case insensitive."
-        parts = line.split()
-        parts[0] = parts[0].lower()
-        return ' '.join(parts)
+        return line.lower()
 
 
 DEFAULT_DATA = "test_reservation_data.json"
@@ -50,7 +48,7 @@ def main(argv):
     data_file_name = DEFAULT_DATA
     if len(argv) > 1:
         data_file_name = argv[1]
-    database = db.ReservationDB()
+    database = ReservationDB()
     database.load_data(data_file_name)
     res = ReservationShell(database)
     res.cmdloop()
