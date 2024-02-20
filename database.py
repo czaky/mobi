@@ -49,18 +49,24 @@ class ReservationDB:
 
     def load_data(self, data_file_name: str):
         "Load data from JSON `data_file_name`."
+        records = []
         with open(data_file_name, encoding='utf8') as data_file:
-            data = json.load(data_file)
-        count = 0
-        for pnr in data['records']:
+            if data_file_name.lower().endswith(".json"):
+                records = json.load(data_file)['records']
+            elif data_file_name.lower().endswith(".jsonl"):
+                records = list(map(json.loads, data_file))
+            else:
+                print(f'ERROR: unrecognized file format: {data_file_name}. ')
+                print('ERROR: need ".json" or ".jsonl" extension.')
+
+        print(f'Loading {len(records)} passenger records from: "{data_file_name}"')
+        for pnr in records:
             flight_code = pnr['flight_number'].lower()
             flight = self.flights.get(flight_code)
             if not flight:
                 flight = self.flights.setdefault(
                     flight_code, Flight(flight_code))
             flight.add_passenger(pnr)
-            count += 1
-        print(f"Loaded {count} passenger records from: '{data_file_name}'")
 
     def lookup_flight(self, flight_code: str) -> Optional[Flight]:
         """Lookup the flight by `flight_code`."""

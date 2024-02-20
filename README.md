@@ -45,12 +45,15 @@ is implemented using `cmd.Cmd` Python utility.
 ## Running
 
 The reservation shell can be invoked with the following command:
-
 ```bash
-python3 shell.py
+python3 shell.py [reservation_data_file.jsonl]
 ```
+from the repository directory.
 
-from the repository.
+The database reads `.jsonl` files as records separated by newline.
+It also reads `.json` files with records as array stored
+in the `records` attribute of the top-level object.
+See the two `test_reservation_data.json(l)` files.
 
 There is also a `notebook.ipynb` file that contains a simple session.
 

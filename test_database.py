@@ -10,10 +10,20 @@ class TestDB(unittest.TestCase):
         db = ReservationDB()
         self.assertEqual(0, db.count_flights())
 
-    def test_load_data(self):
+    def test_load_data_json(self):
         "Test `load_data` method."
         db = ReservationDB()
         db.load_data("test_reservation_data.json")
+        self.assertEqual(2, db.count_flights())
+
+        fl = db.lookup_flight("aa311")
+        self.assertIsNotNone(fl)
+        self.assertEqual(2, fl.count_passengers())
+
+    def test_load_data_jsonl(self):
+        "Test `load_data` method."
+        db = ReservationDB()
+        db.load_data("test_reservation_data.jsonl")
         self.assertEqual(2, db.count_flights())
 
         fl = db.lookup_flight("aa311")
