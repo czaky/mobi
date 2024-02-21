@@ -28,6 +28,10 @@ There has also been no provisions made to persist the state of
 the database or provide for any failure compensation should
 the "simulator" process crash due to various reasons.
 
+The (test) data loaded to the database is assumed to be cleaned
+and validated without any duplicate or missing records. For
+brevity any input data code has been omitted from the solution here.
+
 ## Components
 
 ### Database
@@ -45,9 +49,11 @@ is implemented using `cmd.Cmd` Python utility.
 ## Running
 
 The reservation shell can be invoked with the following command:
+
 ```bash
 python3 shell.py [reservation_data_file.jsonl]
 ```
+
 from the repository directory.
 
 The database reads `.jsonl` files as records separated by newline.
